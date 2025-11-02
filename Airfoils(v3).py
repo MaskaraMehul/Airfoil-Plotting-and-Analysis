@@ -38,7 +38,7 @@ def xfoil_plot(code, vel=400, alpha_i=0, alpha_f=30, alpha_step=0.5, chord=1):
     with open("xfoil_input.inp", "rb") as inp:
         subprocess.run(r"C:\Users\ACER\Desktop\my files\python\XFOIL6.99\xfoil.exe",stdin=inp)
 
-    # === Second Figure: Aerodynamic Data ===
+    
     df = pd.read_csv("polar.txt", delim_whitespace=True, skiprows=12, header=None)
 
     fig2,ax2 = plt.subplots(2,2)
@@ -106,7 +106,7 @@ def naca00xx(code, chord=1):
                    0.2843 * (num ** 3) - 0.1036 * (num ** 4)) for num in x]
     yu = [-num for num in yt]
 
-    # === First figure: Airfoil geometry ===
+    
     fig1 = plt.figure("Airfoil Geometry")
     plt.style.use("ggplot")
     plt.plot(x, yt, label=f"NACA - {code}", color='black', linewidth=1.4)
@@ -149,7 +149,7 @@ def nacaxxxx(code, chord=1):
     xl = [num + yt_i * np.sin(th) for num, yt_i, th in zip(x, yt, theta)]
     yl = [yc_i - yt_i * np.cos(th) for yc_i, yt_i, th in zip(yc, yt, theta)]
 
-    # === First Figure: Airfoil geometry ===
+    
     fig1 = plt.figure("Airfoil Geometry")
     plt.plot(x, yc, label='Mean Camber Line', linestyle='--', color='black', linewidth=1.25)
     plt.plot(xv, yv, color='black', label=f'NACA - {code} Upper', linewidth=1.4)
@@ -170,5 +170,6 @@ if int(code[0]) == 0 and int(code[1]) == 0:
     naca00xx(code)
 else:
     nacaxxxx(code)
+
 
 plt.show()
